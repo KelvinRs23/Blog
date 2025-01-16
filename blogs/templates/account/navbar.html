@@ -1,0 +1,38 @@
+{% load static %} 
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <img style="width: 180px; margin-bottom: 10px;" src="{% static 'images/logoku-removebg-preview.png' %}"> 
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li style="padding-right: 10px; font-size: 25px; color: white;" class="nav-item active">
+        <a style="color: white; margin-top: 5px;" class="nav-link" href="{% url 'home' %}">Beranda</a>
+      </li>
+      
+      <div style="padding-top: 13px; padding-left: 30px; font-size: 20px;" class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 19px; margin-bottom: 10px;">
+          Kategori
+        </button>
+        
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <a href="?kategori=+Horror+Indo+%26+Horror+Luar+Negri"><button class="dropdown-item" type="button">Film Horror Indo & Film Horror Luar Negri</button></a>
+          <a href="?kategori=+Comedy+Indo+%26+Comedy+Luar+Negri+"><button class="dropdown-item" type="button">Film Comedy Indo & Film Comedy Luar Negri</button></a>
+          <a href="?kategori=+Romance+Indo+%26+Romance+Luar+Negri"><button class="dropdown-item" type="button">Film Romance Indo & Film Romance Luar Negri</button></a> 
+        </div>
+      </div>
+    </ul>
+  </div>
+  <!-- <form class="search" method="get" style="font-family: Verdana, Geneva, Tahoma, sans-serif; color: black;">
+    {{ pics.form.kategori }}
+    <button class="btn btn-primary" type="submit">Search</button>
+  </form> -->
+  <a style="color: white; margin-top: 5px;" class="nav-link" href="{% url 'about' %}">About</a>
+  <a style="color: white; margin-top: 5px;" class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+  <a href="https://www.instagram.com/kelvin.rs__/"><img style="width: 100px;" src="{% static 'images/logoinstagram.png' %}"></a>
+  <a href="https://web.facebook.com/kelvin.bjg/"><img style="width: 100px;" src="{% static 'images/logofb2.png' %}"></a>
+  
+</nav>

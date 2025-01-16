@@ -1,0 +1,377 @@
+{% extends 'account/main.html' %}
+
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }}</title>
+    <style>
+        body {
+            background-color: #0f0f0f;
+            font-family: 'Arial', sans-serif;
+            color: white;
+        }
+
+        .card {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-text {
+            font-size: 14px;
+            color: #ecf0f1;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #f1c40f;
+            margin: 10;
+        }
+
+        .card-text.full {
+            white-space: normal;
+            max-height: none;
+        }
+
+        .card-text .read-more {
+            color: #3498db;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .card-text .read-more:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            /*z-index: 1;*/
+            /*z-index: 9999;*/
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+            text-align: center;
+        }
+
+        .modal-content {
+            background-color: #f1f1f1;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 40%;
+            max-width: 500px;
+            color: black;
+            border-radius: 10px;
+            overflow-y: auto;
+            max-height: 70vh;
+            word-wrap: break-word;
+            white-space: normal;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            right: 20px;
+            top: 0;
+        }
+
+        .close:hover,
+
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+
+        .btn-outline-light {
+            color: #fff;
+            border-color: #f1c40f;
+            background-color: transparent;
+        }
+
+        .btn-outline-light:hover {
+            background-color: #f1c40f;
+            color: #222;
+        }
+
+        .section-header {
+            font-size: 30px;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+            font-style: italic;
+            color: #f1c40f;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .comment-form {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 40px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .comment-form table {
+            width: 100%;
+        }
+
+        .comment-form button {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .flex-container .card {
+            width: 18rem;
+        }
+
+        .card-wrapper {
+            display: flex;
+            transition: transform 0.3s ease;
+            width: auto;
+        }
+
+        .card {
+            /*width: calc(100% / 5);*/
+            width: 18rem;
+            flex-shrink: 0;
+            margin-right: 20px;
+        }
+
+        .slider-container {
+            position: relative;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 24px;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 50%;
+        }
+
+        .slider-arrow.left {
+            left: 10px;
+        }
+
+        .slider-arrow.right {
+            right: 10px;
+        }
+
+        .card-title .read-more {
+            color: #3498db;
+            font-size: 14px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .card-title .read-more:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="section-header">Rekomendasi Film</div>
+
+    <div class="slider-container">
+        <div class="card-wrapper">
+            {% for film in films %}
+                <div class="card">
+                    <img src="{{ film.image.url }}" alt="Poster Film {{ film.judul }}">
+                    <div class="card-body">
+                        <h1 class="card-title" id="title-{{ forloop.counter }}">
+                                {{ film.judul|truncatechars:10 }}
+                                <a href="javascript:void(0);" class="read-more" onclick="openModal('{{ film.judul|escapejs }}')">read more</a>
+                        </h1>
+                        <div class="card-text" id="description-{{ forloop.counter }}">
+                            {{ film.deskripsi|truncatechars:20 }}
+                            <a href="javascript:void(0);" class="read-more" onclick="openModal('{{ film.deskripsi|escapejs }}')">read more</a>
+                        </div>
+                        <p class="card-text">Category: {% if film.kategori %}{{ film.kategori.nama }}{% else %}No category{% endif %}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No films available</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <button class="slider-arrow left" onclick="scrollSlider('left')">←</button>
+    <button class="slider-arrow right" onclick="scrollSlider('right')">→</button>
+
+<!--    <hr style="border-color: white; height: 500px">-->
+    <hr style="border-color: white; height: 500px; border: none;">
+    <div class="comment-form">
+        <h3 class="section-header">Tulis Komentar</h3>
+        <hr style="border-color: white;">
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                {{ post_form.as_table }}
+            </table>
+            <div style="text-align: center;">
+                <button class="btn btn-outline-light" type="submit">Kirim</button>
+            </div>
+        </form>
+    </div>
+
+    <h1 class="section-header">{{ page_title }}</h1>
+    <hr style="border-color: white;">
+
+    {% for post in posts %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ post.Nama }}</h5>
+            <p class="card-text">{{ post.Komentar }}</p>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Modal -->
+    <div id="filmModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Detail</h2>
+            <p id="fullDescription"></p>
+        </div>
+    </div>
+
+    <script>
+        function openModal(description) {
+            console.log("openModal triggered with description:", description);
+            document.getElementById("fullDescription").innerText = description;
+            document.getElementById("filmModal").style.display = "block";
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById("filmModal").style.display = "none";
+        }
+
+        // Close modal if clicked outside the modal content
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("filmModal")) {
+                closeModal();
+            }
+        }
+
+        function scrollSliders(direction) {
+            const slider = document.querySelector('.card-wrapper');
+            const cardWidth = document.querySelector('.card').offsetWidth + 20;
+
+            let currentTransform = slider.style.transform.replace('translateX(', '').replace('px)', '') || 0;
+            currentTransform = parseInt(currentTransform);
+
+            if (direction === 'left') {
+                slider.style.transform = `translateX(${currentTransform + cardWidth}px)`;
+            } else if (direction === 'right') {
+                slider.style.transform = `translateX(${currentTransform - cardWidth}px)`;
+            }
+
+        }
+
+        function scrollSlider(direction) {
+                const slider = document.querySelector('.card-wrapper');
+                const cardWidth = document.querySelector('.card').offsetWidth + 20;
+                const totalCards = document.querySelectorAll('.card').length;
+                const visibleCards = Math.floor(slider.offsetWidth / cardWidth);
+
+                let currentTransform = slider.style.transform.replace('translateX(', '').replace('px)', '') || 0;
+                currentTransform = parseInt(currentTransform);
+
+                let newTransform = currentTransform;
+
+                if (direction === 'left') {
+                    newTransform += cardWidth;  // Move slider to the right when left button is clicked
+                } else if (direction === 'right') {
+                    newTransform -= cardWidth;  // Move slider to the left when right button is clicked
+                }
+
+                const maxTransform = 0;  // Can't scroll to the left beyond the first card
+                const maxScrollable = -(totalCards - visibleCards) * cardWidth;  // Max scrollable position for the last card
+
+                if (newTransform > maxTransform) {
+                    newTransform = maxTransform; // Don't let it scroll past the first card
+                }
+
+                if (newTransform < maxScrollable) {
+                    newTransform = maxScrollable; // Don't let it scroll past the last card (empty space handling)
+                }
+
+                slider.style.transform = `translateX(${newTransform}px)`;
+
+                updateSliderButtons(newTransform, maxScrollable, maxTransform);
+            }
+
+        function updateSliderButtons(currentTransform, maxScrollable, maxTransform) {
+            const leftArrow = document.querySelector('.slider-arrow.left');
+            const rightArrow = document.querySelector('.slider-arrow.right');
+
+            if (currentTransform >= maxTransform) {
+                leftArrow.disabled = true;
+            } else {
+                leftArrow.disabled = false;
+            }
+
+            if (currentTransform <= maxScrollable) {
+                rightArrow.disabled = true;
+            } else {
+                rightArrow.disabled = false;
+            }
+        }
+
+    </script>
+
+</body>
+</html>
+
+{% endblock %}

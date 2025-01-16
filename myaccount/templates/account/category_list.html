@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Category List</title>
+</head>
+<body>
+    <h1>Category List</h1>
+    <a href="{% url 'create_category' %}">
+    <button>Add Category</button>
+</a>
+
+    {% if categories %}
+        <ul>
+            {% for category in categories %}
+                <li>{{ category.nama }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No categories available.</p>
+    {% endif %}
+</body>
+</html>

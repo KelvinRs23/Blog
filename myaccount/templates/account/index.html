@@ -1,0 +1,11 @@
+{% extends 'account/main.html' %}
+
+{% block content %}
+
+<h1 style="color: white;">{{page_title}}</h1>
+{% for post in posts %}
+    <h1 style="color: white;">{{post.Nama}}</h1>
+    <p style="color: white;">{{post.Komentar}}</p>
+{% endfor %}
+
+{% endblock %}
