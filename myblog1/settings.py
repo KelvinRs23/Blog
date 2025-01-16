@@ -95,12 +95,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres', 
-        'USER': 'postgres',
-        'PASSWORD': '8A$#T3xg$myBz6G',
-        'HOST': 'db.wiprvnmpwjeezkkpimzv.supabase.co',
-        'PORT': '5432',
-        
+        'NAME': 'postgres',
+        'USER': 'postgres.fltzxezvqakyxaxvmdtq',
+        'PASSWORD': '1MgQgokLx3mOpY28',
+        'HOST': 'aws-0-ap-southeast-1.pooler.supabase.com',
+        'PORT': '6543',
     }
 }
 
