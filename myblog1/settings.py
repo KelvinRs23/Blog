@@ -162,3 +162,5 @@ CLOUDINARY_STORAGE = {
 
 # Make cloudinary the default file storage
 DEFAULT_FILE_STORAGE: 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
