@@ -41,6 +41,8 @@ INSTALLED_APPS = [
 
     'myaccount',
     'whitenoise.runserver_nostatic',
+    'cloudinary',
+    'cloudinary_storage',  
 ]
 
 MIDDLEWARE = [
