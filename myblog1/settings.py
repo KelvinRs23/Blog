@@ -25,7 +25,7 @@ SECRET_KEY = 'x-*#k9@3ih2ut(6$b4fufy$wix%qsk9ni&3xlyy4gt)2p@7t@)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1']
 
 
 # Application definition
@@ -150,4 +150,13 @@ STATICFILES_DIRS = [
     (BASE_DIR/ 'static')
 ]
 
-MEDIA_ROOT = (BASE_DIR/ 'tmp/images')
+MEDIA_ROOT = (BASE_DIR/ 'static/images')
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dzus557z9',
+    'API_KEY': '997984846359231',
+    'API_SECRET': 'SDC8F4J6PWy1_-ecRE7g0x7xrfM',
+}
+
+# Make cloudinary the default file storage
+DEFAULT_FILE_STORAGE: 'cloudinary_storage.storage.MediaCloudinaryStorage'
