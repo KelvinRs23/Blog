@@ -164,3 +164,4 @@ CLOUDINARY_STORAGE = {
 DEFAULT_FILE_STORAGE: 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+print(f"DEFAULT_FILE_STORAGE: {DEFAULT_FILE_STORAGE}")

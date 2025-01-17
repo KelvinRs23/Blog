@@ -42,5 +42,5 @@ class Category(models.Model):
 class Film(models.Model):
     judul = models.CharField(max_length=255)
     deskripsi = models.TextField()
-    image = models.ImageField(upload_to='static/%y')
+    image = models.ImageField()
     kategori = models.ForeignKey(Category, on_delete=models.CASCADE)
