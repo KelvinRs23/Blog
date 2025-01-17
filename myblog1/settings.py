@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import cloudinary.api
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -152,17 +152,22 @@ STATICFILES_DIRS = [
     (BASE_DIR/ 'static')
 ]
 
-MEDIA_ROOT = (BASE_DIR/ 'static/images')
+#MEDIA_ROOT = (BASE_DIR/ 'static/images')
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dzus557z9',
-    'API_KEY': '997984846359231',
-    'API_SECRET': 'SDC8F4J6PWy1_-ecRE7g0x7xrfM',
+    'CLOUD_NAME': 'dbbwkhm9z',
+    'API_KEY': '596764748663272',
+    'API_SECRET': 'qKUHhJCfcuALXt6zKFRKqb4YE30',
 }
+
+cloudinary.config(
+    cloud_name='dbbwkhm9z',
+    api_key='596764748663272',
+    api_secret='qKUHhJCfcuALXt6zKFRKqb4YE30'
+)
 
 # Make cloudinary the default file storage
 DEFAULT_FILE_STORAGE: 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 
 #print(f"DEFAULT_FILE_STORAGE: {DEFAULT_FILE_STORAGE}")
